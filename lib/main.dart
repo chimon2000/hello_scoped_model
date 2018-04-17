@@ -9,14 +9,14 @@ void main() {
 class CounterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new ScopedModel<MainModel>(
-      model: new MainModel(),
-      child: new MaterialApp(
+    return ScopedModel<MainModel>(
+      model: MainModel(),
+      child: MaterialApp(
         title: 'Flutter Demo',
-        theme: new ThemeData(
+        theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: new CounterHome('Scoped Model Demo'),
+        home: CounterHome('Scoped Model Demo'),
       ),
     );
   }
@@ -29,12 +29,12 @@ class CounterHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: new Text(title),
       ),
-      body: new Center(
-        child: new Column(
+      body: Center(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             buildCounterText(),
@@ -47,21 +47,25 @@ class CounterHome extends StatelessWidget {
   }
 }
 
-var buildCounterText = () => new ScopedModelDescendant<MainModel>(
-      builder: (context, child, model) => new Text(
-          "You have incremented the counter the button ${model.counter.toString()} times",
-          style: Theme.of(context).textTheme.body2),
-    );
+var counterText = (int counter) =>
+    "You have incremented the counter ${counter.toString()} times";
 
-var buildIncrementFab = () => new ScopedModelDescendant<MainModel>(
-      builder: (context, child, model) => new FloatingActionButton(
-            onPressed: model.increment,
-            tooltip: 'Increment',
-            child: new Icon(Icons.add),
+var buildCounterText = () => ScopedModelDescendant<MainModel>(
+      builder: (context, child, model) => Text(
+            counterText(model.counter),
+            style: Theme.of(context).textTheme.body2,
           ),
     );
 
-var buildCounterButtons = () => new ScopedModelDescendant<MainModel>(
+var buildIncrementFab = () => ScopedModelDescendant<MainModel>(
+      builder: (context, child, model) => FloatingActionButton(
+            onPressed: model.increment,
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+          ),
+    );
+
+var buildCounterButtons = () => ScopedModelDescendant<MainModel>(
     builder: (context, child, model) => ButtonBar(
           alignment: MainAxisAlignment.center,
           children: <Widget>[
