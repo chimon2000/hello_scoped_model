@@ -1,12 +1,12 @@
 import 'package:scoped_model/scoped_model.dart';
 
-class CounterModel extends Model {
+mixin CounterModel on Model {
   var _counter = 0;
 
   int get counter => _counter;
 }
 
-abstract class IncrementModel extends CounterModel {
+mixin IncrementModel on CounterModel {
   void increment() {
     // First, increment the counter
     _counter++;
@@ -16,7 +16,7 @@ abstract class IncrementModel extends CounterModel {
   }
 }
 
-abstract class DecrementModel extends CounterModel {
+mixin DecrementModel on CounterModel {
   void decrement() {
     // First, decrement the counter
     _counter--;
@@ -26,7 +26,7 @@ abstract class DecrementModel extends CounterModel {
   }
 }
 
-abstract class ResetModel extends CounterModel {
+mixin ResetModel on CounterModel {
   void reset() {
     // First, reset the counter
     _counter = 0;
